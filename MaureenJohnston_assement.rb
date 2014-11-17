@@ -160,19 +160,24 @@ end
 # d. ii. Then use it to add a 'Ranking' key with the value 1.
 puts new_rank(school, "rank", 1)
 ##########################
-# 5. Object Orientation
+# 5. Object Orientation && 6. Classes
 ##########################
-#  a. Create a bare bones class definition for a School Class
-#  b. Define an initialize method for the School class.  
+#  5.a. Create a bare bones class definition for a School Class
+#  5.b. Define an initialize method for the School class.  
 #     i.   Give your School class the instance variables: name, location,
 #        ranking, students, instructors.  The varialbes should be of same type
 #        as the hash above
 #     ii.  Rewrite your initialize method definition to take a parameter for each instance variable 
 #     iii. Initialize each instance variable with the value of the crresponding parameter.
-#  c. Create a method to set ranking, given a ranking value.
-#  f. Create a method to remove a student from the school, given a name.
-#  g. Create an array constant SCHOOLS that stores all instances of your School class
-#  h. Create a class method reset that will empty the SCHOOLS constant.
+#  5.c. Create a method to set ranking, given a ranking value.
+#  5.f. Create a method to remove a student from the school, given a name.
+#  5.g. Create an array constant SCHOOLS that stores all instances of your School class
+#  5.h. Create a class method reset that will empty the SCHOOLS constant.
+#
+#  6.a. Create a Student Class
+#  6.b. Refactor your School instanc methods to treat Students as an array of object instead of array of hashes
+#  6.c. Create a method in the School class that finds a student by name and returns the correct Student object.
+#
 class School
 attr_accessor :name, :location, :instructors, :students
 attr_reader :ranking
@@ -192,13 +197,16 @@ attr_reader :ranking
   def set_ranking rank
     @ranking = rank
   end
+  def find_student_by_name(name)
+    @students.each {|student| return student if student.name == name}
+  end
   def add_student student_passed
     @students.each do |student|
       if student.name == student_passed.name && 
         student.grade == student_passed.grade && 
         student.semester == student_passed.semester
         student.show
-        p "already exits please choose a unique name"
+        puts ", already exits please choose a unique name"
         return
       end
     end
@@ -224,7 +232,7 @@ attr_reader :ranking
     if i < @students.length
       @students.slice!(save_index)
     else
-      puts "Could not find student to delete"
+      puts "Could not find student #{name} to delete"
     end
   end
 end
@@ -239,7 +247,7 @@ class Student
     "Student:#{@name}"
   end
   def show
-    p "'#{self}'"
+    print "'#{self}'"
   end
 end
 my_school = School.new(
@@ -260,14 +268,63 @@ my_school = School.new(
   )
 
 my_school.set_ranking 4
+
 my_school.add_student Student.new("Mo", "A", "Summer")
 my_school.add_student Student.new("Billy", "F", nil)
 
 my_school.delete_student "Mo"
-#  Create a class method reset that will empty the SCHOOLS constant.
+
 my_school.reset
 
-
-# 6. Classes
-
+my_school.find_student_by_name("Sophie")
+##########################
 # 7. Self
+##########################
+# a.  What should this Class print to the screen when defined/loaded?
+#    >hello
+#    >Student
+puts "SELF"
+class Student_7_a
+  def self.say_hello
+    puts 'hello'
+  end
+  say_hello
+  puts self
+end
+# b.  What should this Class print to the screen when defined/loaded?
+#    >Student1
+  class Student_7_b
+    def self.say_hello
+      puts self
+    end
+      say_hello
+  end
+# c.  What should this Class print to the screen when defined/loaded?
+#    >
+class Student_7_c
+  def initailize
+    puts self
+  end
+  new 
+end
+# d.  What should this code print to the screen when run?
+#     since it an instance variable you will get 
+#     >#<Student_7_d:"address of instance object that has access to this method">
+class Student_7_d
+  def say_hello
+    puts self
+  end
+end
+
+Student_7_d.new.say_hello
+# e.  What should this code print to the screen when run?
+#    >goodbye
+class Student_7_e
+  def say_hello
+    puts say_goodbye
+  end
+  def say_goodbye
+    'goodbye'
+  end
+end
+  Student_7_e.new.say_hello
