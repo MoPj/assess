@@ -1,5 +1,8 @@
 require_relative 'MaureenJohnston_assement_refactored_Problems_prob_6.rb'
 require 'ap'
+# I plan on refactoring this code so the problems can be
+#  run with input to change the outcome of each problem but 
+#  I have not gotten to it yet 11/17/2014
 # Maureen Johnston Flatiron School Assesment
 class Problem
   attr_reader :name
