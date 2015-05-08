@@ -1,1 +1,1 @@
-This is my FlatironSchool ruby assessment project
+This is my ruby assessment project
